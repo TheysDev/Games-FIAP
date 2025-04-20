@@ -19,7 +19,7 @@ public class Game {
     private String titulo;
 
     @Column(name = "DATA_LANCAMENTO")
-    private LocalDate dataLancamentos;
+    private LocalDate dataLancamento;
 
     private Double valor;
     private String produtora;
@@ -58,12 +58,12 @@ public class Game {
         this.valor = valor;
     }
 
-    public LocalDate getDataLancamentos() {
-        return dataLancamentos;
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
     }
 
-    public void setDataLancamentos(LocalDate dataLancamentos) {
-        this.dataLancamentos = dataLancamentos;
+    public void setDataLancamento(LocalDate dataLancamentos) {
+        this.dataLancamento = dataLancamentos;
     }
 
     public String getTitulo() {
@@ -80,5 +80,16 @@ public class Game {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "ID:" + this.id + ""
+                + "\nTITULO: " + this.titulo + ""
+                + "\nPRODUTORA: " + this.produtora + ""
+                + "\nCATEGORIA: " + this.categoria + ""
+                + "\nLANÇAMENTO: " + this.dataLancamento + ""
+                + "\nFINALIZADO: " + this.finalizado + ""
+                + "\nVALOR: " + this.valor;
     }
 }
