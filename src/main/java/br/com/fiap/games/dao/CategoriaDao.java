@@ -14,4 +14,8 @@ public class CategoriaDao {
     public void salvar(Categoria categoria){
         em.persist(categoria);
     }
+
+    public Categoria buscarCategoriaPeloId(Categoria categoria){
+        return em.find(Categoria.class, categoria.getId());
+    }
 }

@@ -28,6 +28,7 @@ public class Game {
     private Boolean finalizado;
 
     @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     public Long getId() {

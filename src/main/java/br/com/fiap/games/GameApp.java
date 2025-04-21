@@ -15,7 +15,7 @@ public class GameApp {
 
         EntityManager em = Conexao.getEntityManager();
 
-        cadastrar(em);
+        //cadastrar(em);
         //pesquisar(em);
         //listarTodosOsGames(em);
         //buscarGamePeloNome(em);
@@ -23,6 +23,17 @@ public class GameApp {
         //buscarGamePelaProdutora(em);
         //buscarGamesFinalizadosOuNaoFinalizados(em);
         //buscarGamesPorFaixaDeDataLancamento(em);
+        buscarCategoriaPeloId(em);
+    }
+
+    public static void buscarCategoriaPeloId(EntityManager em){
+        CategoriaDao categoriaDao = new CategoriaDao(em);
+        Categoria categoria = new Categoria();
+        categoria.setId(1L);
+        Categoria categoriaEncontrada = categoriaDao.buscarCategoriaPeloId(categoria);
+
+        System.out.println(categoriaEncontrada.toString());
+
     }
 
     public static void buscarGamesPorFaixaDeDataLancamento(EntityManager em){
