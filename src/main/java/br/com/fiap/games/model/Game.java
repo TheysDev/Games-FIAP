@@ -22,9 +22,13 @@ public class Game {
     private LocalDate dataLancamento;
 
     private Double valor;
+
     private String produtora;
+
     private Boolean finalizado;
-    private String categoria;
+
+    @ManyToOne
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -74,11 +78,11 @@ public class Game {
         this.titulo = titulo;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
@@ -87,7 +91,7 @@ public class Game {
         return "ID:" + this.id + ""
                 + "\nTITULO: " + this.titulo + ""
                 + "\nPRODUTORA: " + this.produtora + ""
-                + "\nCATEGORIA: " + this.categoria + ""
+                + "\nCATEGORIA: " + this.categoria.getNomeCategoria() + ""
                 + "\nLANÇAMENTO: " + this.dataLancamento + ""
                 + "\nFINALIZADO: " + this.finalizado + ""
                 + "\nVALOR: " + this.valor;

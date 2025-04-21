@@ -1,6 +1,8 @@
 package br.com.fiap.games;
 
+import br.com.fiap.games.dao.CategoriaDao;
 import br.com.fiap.games.dao.GameDao;
+import br.com.fiap.games.model.Categoria;
 import br.com.fiap.games.model.Game;
 import br.com.fiap.games.utils.Conexao;
 import jakarta.persistence.EntityManager;
@@ -13,14 +15,14 @@ public class GameApp {
 
         EntityManager em = Conexao.getEntityManager();
 
-        //cadastrar(em);
+        cadastrar(em);
         //pesquisar(em);
         //listarTodosOsGames(em);
         //buscarGamePeloNome(em);
         //buscarGamesPorFaixaDeValores(em);
         //buscarGamePelaProdutora(em);
         //buscarGamesFinalizadosOuNaoFinalizados(em);
-        buscarGamesPorFaixaDeDataLancamento(em);
+        //buscarGamesPorFaixaDeDataLancamento(em);
     }
 
     public static void buscarGamesPorFaixaDeDataLancamento(EntityManager em){
@@ -102,19 +104,39 @@ public class GameApp {
     }
 
     public static void cadastrar(EntityManager em){
-        Game game1 = new Game();
-        game1.setTitulo("BATLETOADS");
-        game1.setCategoria("LUTA");
-        game1.setDataLancamento(LocalDate.of(1991,6,1));
-        game1.setFinalizado(true);
-        game1.setProdutora("TRADEWEST, RARE");
-        game1.setValor(99.89);
 
+        // CRIANDO UMA CATEGORIA
+        Categoria luta = new Categoria();
+        luta.setNomeCategoria("LUTA");
+
+        // CRIANDO UMA INSTANCIA DA CATEGORIA-DAO
+        CategoriaDao categoriaDao = new CategoriaDao(em);
+
+        // INICIANDO UMA TRANSAÇÃO DE DADOS NO BANCO
+        em.getTransaction().begin();
+
+        // SALVANDO A NOVA CATEGORIA NO BANCO DE DADOS
+        categoriaDao.salvar(luta);
+
+        // CRIANDO UM GAME DA CATEGORIA LUTA
+        Game game1 = new Game();
+        game1.setTitulo("Street Fighter II");
+        game1.setCategoria(luta);
+        game1.setDataLancamento(LocalDate.of(1992,2,1));
+        game1.setFinalizado(true);
+        game1.setProdutora("Capcom");
+        game1.setValor(399.99);
+
+        // CRIANDO UMA INSTANCIA DA GAME-DAO
         GameDao gameDao = new GameDao(em);
 
-        em.getTransaction().begin();
+        // SALVANDO O NOVO GAME NO BANCO
         gameDao.salvar(game1);
+
+        // SICRONIZANDO O BANCO COM TODAS AS ALTERAÇÕES
         em.getTransaction().commit();
+
+        // FECHANDO O ENTITY MANEGER
         em.close();
     }
 
