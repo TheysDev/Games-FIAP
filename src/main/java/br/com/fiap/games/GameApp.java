@@ -18,7 +18,39 @@ public class GameApp {
         //listarTodosOsGames(em);
         //buscarGamePeloNome(em);
         //buscarGamesPorFaixaDeValores(em);
+        //buscarGamePelaProdutora(em);
+        //buscarGamesFinalizadosOuNaoFinalizados(em);
+        buscarGamesPorFaixaDeDataLancamento(em);
+    }
 
+    public static void buscarGamesPorFaixaDeDataLancamento(EntityManager em){
+        GameDao gameDao = new GameDao(em);
+        List<Game> games = gameDao.buscarGamesPorFaixaDeDataLancamento(LocalDate.of(1986,2,1), LocalDate.of(1987,12,31));
+
+        for (Game game : games){
+            System.out.println("---------------------");
+            System.out.println(game);
+        }
+    }
+
+    public static void buscarGamesFinalizadosOuNaoFinalizados(EntityManager em){
+        GameDao gameDao = new GameDao(em);
+        List<Game> games = gameDao.buscarGamesFinalizadosOuNaoFinalizados(false);
+
+        for (Game game : games){
+            System.out.println("---------------------");
+            System.out.println(game);
+        }
+    }
+
+    public static void buscarGamePelaProdutora(EntityManager em){
+        GameDao gameDao = new GameDao(em);
+        List<Game> games = gameDao.buscarGamePelaProdutora("NINTENDO");
+
+        for (Game game : games){
+            System.out.println("---------------------");
+            System.out.println(game);
+        }
     }
 
     public static void buscarGamesPorFaixaDeValores(EntityManager em) {

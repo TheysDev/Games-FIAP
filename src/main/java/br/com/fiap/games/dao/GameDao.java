@@ -3,6 +3,7 @@ package br.com.fiap.games.dao;
 import br.com.fiap.games.model.Game;
 import jakarta.persistence.EntityManager;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class GameDao {
@@ -48,6 +49,31 @@ public class GameDao {
         return em.createQuery(jpqlQuery, Game.class)
                 .setParameter("valorInicial", valorInicial)
                 .setParameter("valorFinal", valorFinal)
+                .getResultList();
+    }
+
+    public List<Game> buscarGamePelaProdutora(String produtora){
+        String jpqlQuery = "SELECT g FROM Game g WHERE g.produtora = :produtora";
+        return em.createQuery(jpqlQuery,Game.class)
+                .setParameter("produtora", produtora)
+                .getResultList();
+    }
+
+    public List<Game> buscarGamesFinalizadosOuNaoFinalizados(boolean finalizado){
+        //int statusFinalizado = finalizado ? 1 : 0;
+
+        String jpqlQuery = "SELECT g FROM Game g WHERE g.finalizado = :finalizado";
+        return em.createQuery(jpqlQuery, Game.class)
+                .setParameter("finalizado", finalizado)
+                .getResultList();
+    }
+
+    public List<Game> buscarGamesPorFaixaDeDataLancamento(LocalDate dataInicial, LocalDate dataFinal){
+        String jpqlQuery = "SELECT g FROM Game g WHERE g.dataLancamento " +
+                "BETWEEN :dataInicial AND :dataFinal ORDER BY g.titulo ASC";
+        return em.createQuery(jpqlQuery, Game.class)
+                .setParameter("dataInicial", dataInicial)
+                .setParameter("dataFinal", dataFinal)
                 .getResultList();
     }
 }
